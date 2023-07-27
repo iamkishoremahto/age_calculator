@@ -1,19 +1,78 @@
+const dayElement = document.getElementById("day");
+const monthElement= document.getElementById("month");
+const yearElement = document.getElementById("year");
+
+
+
+const invalidDate = (element,message,limitValue=0) => {
+    console.log(element);
+    element.addEventListener("change",() => {
+        value = parseInt(element.value);
+        value2 = element.value;
+        if(limitValue ==='year'){
+            if(value2 !== ''){
+                if(!checkInputType(value2)){
+                    
+                    alert(message);
+                    element.value = ''
+        
+                } 
+            }
+        }
+        else{
+            if(value2 !== ''){
+        if(!checkInputType(value) || value>limitValue){
+            
+            alert(message);
+            element.value = ''
+            
+
+        }
+    }
+    }
+
+
+    });
+};
+
+invalidDate(dayElement,"Invalid day input",31);
+invalidDate(monthElement,"Invalid month input",12);
+invalidDate(yearElement,"Invalid year input","year");
+
+
 document.getElementById("calcAge").addEventListener("click", function (event) {
 
-    const day = (document.getElementById("day").value);
-    const month= (document.getElementById("month").value);
-    const year = (document.getElementById("year").value);
+    const day = (dayElement.value);
+    const month= (monthElement.value);
+    const year = (yearElement.value);
     console.log(day,month,year);
     const startDateStr = `${year}-${month}-${day}`;
     console.log(startDateStr);
-    const datee = age_calc(startDateStr)
+    if(checkInputType(day) && checkInputType(month) && checkInputType(year)){
+        const datee = age_calc(startDateStr)
     console.log(datee);
     changeDate(datee)
+    }
+    else{
+        alert("Please enter valid date");
+    }
+    
 
    
     
 
 });
+
+const checkInputType = (input) =>{
+    value = parseInt(input);
+    if(Number.isInteger(value)){
+        return true;
+}
+else{
+    return false;
+}
+}
+
 
 const changeDate  = (datee) => {
 
